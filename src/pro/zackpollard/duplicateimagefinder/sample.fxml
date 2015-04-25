@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<Pane fx:controller="pro.zackpollard.duplicateimagefinder.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imageView" fitHeight="477.0" fitWidth="657.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnImage1" layoutX="17.0" layoutY="7.0" mnemonicParsing="false" onAction="#clickImage1" prefHeight="53.0" prefWidth="140.0" text="Image 1" ></Button>
+      <Button fx:id="btnImage2" layoutX="176.0" layoutY="7.0" mnemonicParsing="false" onAction="#clickImage2" prefHeight="53.0" prefWidth="140.0" text="Image 2" ></Button>
+      <Button fx:id="btnNext" layoutX="337.0" layoutY="7.0" mnemonicParsing="false" onAction="#clickNextDuplicate" prefHeight="53.0" prefWidth="140.0" text="Next Duplicate" ></Button>
+      <Button fx:id="btnDelete" layoutX="499.0" layoutY="7.0" mnemonicParsing="false" onAction="#clickDeleteCurrent" prefHeight="53.0" prefWidth="140.0" text="Delete Current Image" ></Button>
+      <Label fx:id="lblLocation" layoutX="14.0" layoutY="71.0" prefHeight="27.0" prefWidth="630.0" text="Image Location: " textOverrun="LEADING_ELLIPSIS" />
+   </children>
+</Pane>
