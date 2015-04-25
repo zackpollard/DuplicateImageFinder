@@ -3,13 +3,11 @@ package pro.zackpollard.duplicateimagefinder;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
-import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Zack on 24/04/2015.
@@ -19,79 +17,66 @@ public class DuplicateManager {
     private final File appLocation;
     private final Main instance;
 
-    private final List<Duplicate> duplicates;
-    private final ConcurrentHashMap<String, Metadata> fileCache;
+    private final Map<String, LinkedList<String>> fileCache;
+    private final LinkedList<String> hashCache;
 
-    private Duplicate currentDuplicate;
+    private int currentDuplicate;
 
     public DuplicateManager(Main instance) {
 
         this.appLocation = new File("./");
         this.instance = instance;
-        this.duplicates = new ArrayList<>();
-        this.fileCache = new ConcurrentHashMap<>();
-        cacheFiles(appLocation);
-        findDuplicates();
-        currentDuplicate = duplicates.get(0);
-    }
+        this.fileCache = new HashMap<>();
+        this.hashCache = new LinkedList<>();
+        findDuplicates(appLocation);
+        currentDuplicate = 0;
 
-    private void findDuplicates() {
+        Map<Integer, Integer> duplicateAmounts = new HashMap<>();
 
-        for(String path : fileCache.keySet()) {
+        for(LinkedList<String> paths : fileCache.values()) {
 
-            //System.out.println("path: " + path);
+            Integer amount = duplicateAmounts.get(paths.size());
+            if(amount == null) {
 
-            Directory directory = fileCache.get(path).getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-            File file = new File(path);
-
-            fileCache.remove(path);
-
-            if(directory != null) {
-
-                for (String duplicatePath : fileCache.keySet()) {
-
-                    File duplicateFile = new File(duplicatePath);
-
-                    if(duplicateFile.length() != file.length()) {
-
-                        continue;
-                    }
-
-                    //System.out.println("path2: " + duplicatePath);
-
-                    Date date = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
-                    Directory duplicateDirectory = fileCache.get(duplicatePath).getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-
-                    if(duplicateDirectory != null) {
-
-                        Date duplicateDate = duplicateDirectory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
-
-                        if(date != null && duplicateDate != null) {
-
-                            if (date.equals(duplicateDate)) {
-
-                                duplicates.add(new Duplicate(path, duplicatePath));
-                                continue;
-                            }
-                        } else {
-
-                            //System.out.println("Date was null!");
-                            duplicates.add(new Duplicate(path, duplicatePath));
-                        }
-                    } else {
-
-                        //System.out.println("Directory2 was null!");
-                        duplicates.add(new Duplicate(path, duplicatePath));
-                    }
-                }
+                amount = 1;
             } else {
 
-                //System.out.println("Directory was null!");
+                ++amount;
             }
+
+            duplicateAmounts.put(paths.size(), amount);
+        }
+
+        for(Map.Entry<Integer, Integer> amounts : duplicateAmounts.entrySet()) {
+
+            System.out.println("Duplicate Amount: " + amounts.getKey() + " - Occurrences: " + amounts.getValue());
         }
     }
 
-    private void cacheFiles(File root) {
+    private String generateHash(File file) {
+
+        Directory directory = null;
+
+        try {
+
+            directory = ImageMetadataReader.readMetadata(file).getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+        } catch (ImageProcessingException | IOException e) {
+        }
+
+        if(directory != null) {
+
+            Date date = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+
+            if(date != null) {
+
+                return date.toString() + "-" + file.length();
+            }
+        }
+
+        return null;
+    }
+
+    private void findDuplicates(File root) {
 
         File[] faFiles = root.listFiles();
 
@@ -99,36 +84,63 @@ public class DuplicateManager {
 
             if(file.getName().toLowerCase().endsWith(".jpg")) {
 
-                try {
+                String hash = generateHash(file);
 
-                    fileCache.put(file.getAbsolutePath(), ImageMetadataReader.readMetadata(file));
-                } catch (ImageProcessingException | IOException e) {
+                LinkedList<String> paths = fileCache.get(hash);
 
-                    //e.printStackTrace();
+                if(paths == null) {
+
+                    paths = new LinkedList<>();
+                    paths.add(file.getAbsolutePath());
+                    fileCache.put(hash, paths);
+                } else {
+
+                    paths.add(file.getAbsolutePath());
                 }
+
+                hashCache.add(hash);
             }
 
             if(file.isDirectory()){
 
-                cacheFiles(file);
+                findDuplicates(file);
+            }
+        }
+
+        for(String hash : new HashSet<>(fileCache.keySet())) {
+
+            if(fileCache.get(hash).size() <= 1) {
+
+                fileCache.remove(hash);
+                hashCache.remove(hash);
             }
         }
     }
 
-    public Duplicate getNextDuplicate() {
+    public LinkedList<String> getNextDuplicate() {
 
-        if(currentDuplicate != null) {
+        if(++currentDuplicate < hashCache.size()) {
 
-            duplicates.remove(currentDuplicate);
+            return fileCache.get(hashCache.get(currentDuplicate));
+        } else {
+
+            return fileCache.get(hashCache.get(--currentDuplicate));
         }
-
-        currentDuplicate = duplicates.get(0);
-
-        return currentDuplicate;
     }
 
-    public Duplicate getCurrentDuplicate() {
+    public LinkedList<String> getPreviousDuplicate() {
 
-        return currentDuplicate;
+        if(--currentDuplicate >= 0) {
+
+            return fileCache.get(hashCache.get(currentDuplicate));
+        } else {
+
+            return fileCache.get(hashCache.get(++currentDuplicate));
+        }
+    }
+
+    public LinkedList<String> getCurrentDuplicate() {
+
+        return fileCache.get(hashCache.get(currentDuplicate));
     }
 }

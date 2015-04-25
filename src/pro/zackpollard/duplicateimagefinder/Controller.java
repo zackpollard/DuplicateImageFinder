@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.LinkedList;
 
 public class Controller {
 
@@ -16,17 +17,17 @@ public class Controller {
         Stage primaryStage = Main.getInstance().getStage();
 
         ImageView imageView = (ImageView) primaryStage.getScene().lookup("#imageView");
-        Duplicate duplicate = instance.getDuplicateManager().getCurrentDuplicate();
+        LinkedList<String> duplicate = instance.getDuplicateManager().getCurrentDuplicate();
 
         if(imageView != null) {
 
-            imageView.setImage(new Image(new File(duplicate.getKey()).toURI().toString()));
+            imageView.setImage(new Image(new File(duplicate.getFirst()).toURI().toString()));
         } else {
 
             System.out.println("ImageView was null!");
         }
         Label lblLocation = (Label) primaryStage.getScene().lookup("#lblLocation");
-        lblLocation.setText("Image Location: " + duplicate.getKey());
+        lblLocation.setText("Image Location: " + duplicate.getFirst());
     }
 
     public void clickImage2(ActionEvent actionEvent) {
@@ -35,17 +36,17 @@ public class Controller {
         Stage primaryStage = Main.getInstance().getStage();
 
         ImageView imageView = (ImageView) primaryStage.getScene().lookup("#imageView");
-        Duplicate duplicate = instance.getDuplicateManager().getCurrentDuplicate();
+        LinkedList<String> duplicate = instance.getDuplicateManager().getCurrentDuplicate();
 
         if(imageView != null) {
 
-            imageView.setImage(new Image(new File(duplicate.getValue()).toURI().toString()));
+            imageView.setImage(new Image(new File(duplicate.get(1)).toURI().toString()));
         } else {
 
             System.out.println("ImageView was null!");
         }
         Label lblLocation = (Label) primaryStage.getScene().lookup("#lblLocation");
-        lblLocation.setText("Image Location: " + duplicate.getValue());
+        lblLocation.setText("Image Location: " + duplicate.get(1));
     }
 
     public void clickNextDuplicate(ActionEvent actionEvent) {

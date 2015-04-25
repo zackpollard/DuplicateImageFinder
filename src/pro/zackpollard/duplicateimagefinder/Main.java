@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class Main extends Application {
 
@@ -30,15 +32,15 @@ public class Main extends Application {
         primaryStage.show();
 
         ImageView imageView = (ImageView) primaryStage.getScene().lookup("#imageView");
-        Duplicate duplicate = duplicateManager.getCurrentDuplicate();
+        LinkedList<String> duplicate = duplicateManager.getCurrentDuplicate();
         if(imageView != null) {
-            imageView.setImage(new Image(new File(duplicate.getKey()).toURI().toString()));
+            imageView.setImage(new Image(new File(duplicate.getFirst()).toURI().toString()));
         } else {
 
             System.out.println("ImageView was null!");
         }
         Label lblLocation = (Label) primaryStage.getScene().lookup("#lblLocation");
-        lblLocation.setText("Image Location: " + duplicate.getKey());
+        lblLocation.setText("Image Location: " + duplicate.getFirst());
     }
 
     public Stage getStage() {
