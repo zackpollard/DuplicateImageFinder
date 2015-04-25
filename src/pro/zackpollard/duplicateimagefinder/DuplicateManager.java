@@ -98,7 +98,10 @@ public class DuplicateManager {
                     paths.add(file.getAbsolutePath());
                 }
 
-                hashCache.add(hash);
+                if(!hashCache.contains(hash)) {
+
+                    hashCache.add(hash);
+                }
             }
 
             if(file.isDirectory()){
@@ -142,5 +145,15 @@ public class DuplicateManager {
     public LinkedList<String> getCurrentDuplicate() {
 
         return fileCache.get(hashCache.get(currentDuplicate));
+    }
+
+    public int getCurrentDuplicateID() {
+
+        return currentDuplicate;
+    }
+
+    public int getTotalDuplicates() {
+
+        return hashCache.size();
     }
 }
