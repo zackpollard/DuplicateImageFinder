@@ -8,6 +8,11 @@
     <artifactId>DuplicateImageFinder</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <jee.level>1.7</jee.level>
+        <jdk.level>1.7</jdk.level>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.drewnoakes</groupId>
