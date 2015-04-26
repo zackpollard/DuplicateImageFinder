@@ -26,9 +26,9 @@
             </resource>
             <resource>
                 <directory>src/main/java/pro/zackpollard/duplicateimagefinder</directory>
-                <excludes>
-                    <exclude>**/sample.fxml</exclude>
-                </excludes>
+                <includes>
+                    <include>**/sample.fxml</include>
+                </includes>
             </resource>
         </resources>
 
