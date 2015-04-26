@@ -41,6 +41,12 @@ public class Main extends Application {
         }
         Label lblLocation = (Label) primaryStage.getScene().lookup("#lblLocation");
         lblLocation.setText("Image Location: " + duplicate.getFirst());
+
+        Label lblImagePos = (Label) primaryStage.getScene().lookup("#lblImagePos");
+        lblImagePos.setText("Image 1/" + duplicate.size());
+
+        Label lblDuplicatePos = (Label) primaryStage.getScene().lookup("#lblDuplicatePos");
+        lblDuplicatePos.setText("Duplicate " + (duplicateManager.getCurrentDuplicateID() + 1) + "/" + duplicateManager.getTotalDuplicates());
     }
 
     public Stage getStage() {
