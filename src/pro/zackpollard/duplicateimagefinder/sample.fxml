@@ -10,14 +10,15 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pro.zackpollard.duplicateimagefinder.Controller">
    <children>
-      <ImageView fx:id="imageView" fitHeight="477.0" fitWidth="657.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageView" fitHeight="477.0" fitWidth="657.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnPreviousImg" layoutX="96.0" layoutY="575.0" mnemonicParsing="false" onAction="#clickPreviousImage" prefHeight="27.0" prefWidth="140.0" text="Last Image" />
       <Button fx:id="btnNextImg" layoutX="426.0" layoutY="576.0" mnemonicParsing="false" onAction="#clickNextImage" prefHeight="27.0" prefWidth="140.0" text="Next Image" />
       <Button fx:id="btnNextDup" layoutX="427.0" layoutY="2.0" mnemonicParsing="false" onAction="#clickNextDuplicate" prefHeight="27.0" prefWidth="140.0" text="Next Duplicate" />
-      <Button fx:id="btnKeepCurrent" layoutX="253.0" layoutY="33.0" mnemonicParsing="false" onAction="#clickKeepCurrent" prefHeight="27.0" prefWidth="155.0" text="Keep Current Image Only" />
-      <Label fx:id="lblLocation" layoutX="14.0" layoutY="60.0" prefHeight="27.0" prefWidth="630.0" text="Image Location: " textOverrun="LEADING_ELLIPSIS" />
+      <Button fx:id="btnKeepCurrent" layoutX="151.0" layoutY="544.0" mnemonicParsing="false" onAction="#clickKeepCurrent" prefHeight="27.0" prefWidth="170.0" text="Keep Current Image Only" />
+      <Label fx:id="lblLocation" layoutX="14.0" layoutY="29.0" prefHeight="27.0" prefWidth="630.0" text="Image Location: " textOverrun="LEADING_ELLIPSIS" />
       <Button fx:id="btnPreviousDup" layoutX="97.0" layoutY="2.0" mnemonicParsing="false" onAction="#clickPreviousDuplicate" prefHeight="27.0" prefWidth="140.0" text="Previous Duplicate" />
-      <Label fx:id="lblDuplicatePos" layoutX="236.0" layoutY="2.0" prefHeight="27.0" prefWidth="192.0" text="0 / 0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
-      <Label fx:id="lblImagePos" layoutX="235.0" layoutY="576.0" prefHeight="27.0" prefWidth="192.0" text="0 / 0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+      <Label fx:id="lblDuplicatePos" alignment="CENTER" layoutX="236.0" layoutY="2.0" prefHeight="27.0" prefWidth="192.0" text="0 / 0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+      <Label fx:id="lblImagePos" alignment="CENTER" layoutX="235.0" layoutY="576.0" prefHeight="27.0" prefWidth="192.0" text="0 / 0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+      <Button fx:id="btnDeleteCurrent" layoutX="340.0" layoutY="544.0" mnemonicParsing="false" onAction="#clickDeleteCurrent" prefHeight="27.0" prefWidth="170.0" text="Delete Current Image Only" />
    </children>
 </Pane>

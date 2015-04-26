@@ -105,6 +105,33 @@ public class Controller {
 
     public void clickKeepCurrent(ActionEvent actionEvent) {
 
-        //TODO: Add code to remove all pictures but currently viewed picture.
+        Main instance = Main.getInstance();
+        DuplicateManager duplicateManager = instance.getDuplicateManager();
+        duplicateManager.keepSelectedImage(currentImage);
+
+        currentImage = 1;
+
+        Stage primaryStage = instance.getStage();
+
+        Label lblImagePos = (Label) primaryStage.getScene().lookup("#lblDuplicatePos");
+        lblImagePos.setText("Duplicate " + (duplicateManager.getCurrentDuplicateID() + 1) + "/" + duplicateManager.getTotalDuplicates());
+
+        this.clickPreviousImage(null);
+    }
+
+    public void clickDeleteCurrent(ActionEvent actionEvent) {
+
+        Main instance = Main.getInstance();
+        DuplicateManager duplicateManager = instance.getDuplicateManager();
+        duplicateManager.deleteCurrentImage(currentImage);
+
+        currentImage = 1;
+
+        Stage primaryStage = instance.getStage();
+
+        Label lblImagePos = (Label) primaryStage.getScene().lookup("#lblDuplicatePos");
+        lblImagePos.setText("Duplicate " + (duplicateManager.getCurrentDuplicateID() + 1) + "/" + duplicateManager.getTotalDuplicates());
+
+        this.clickPreviousImage(null);
     }
 }
