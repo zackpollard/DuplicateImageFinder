@@ -73,6 +73,9 @@ public class DuplicateManager {
             if(date != null) {
 
                 return date.toString() + "-" + file.length();
+            } else {
+
+                return String.valueOf(file.length());
             }
         }
 
