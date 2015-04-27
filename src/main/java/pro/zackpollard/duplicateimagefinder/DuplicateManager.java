@@ -73,13 +73,10 @@ public class DuplicateManager {
             if(date != null) {
 
                 return date.toString() + "-" + file.length();
-            } else {
-
-                return String.valueOf(file.length());
             }
         }
 
-        return null;
+        return String.valueOf(file.length());
     }
 
     private void findDuplicates(File root) {
