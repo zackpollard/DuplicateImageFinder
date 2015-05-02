@@ -20,5 +20,6 @@
       <Label fx:id="lblDuplicatePos" alignment="CENTER" layoutX="236.0" layoutY="2.0" prefHeight="27.0" prefWidth="192.0" text="0 / 0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
       <Label fx:id="lblImagePos" alignment="CENTER" layoutX="235.0" layoutY="576.0" prefHeight="27.0" prefWidth="192.0" text="0 / 0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
       <Button fx:id="btnDeleteCurrent" layoutX="340.0" layoutY="544.0" mnemonicParsing="false" onAction="#clickDeleteCurrent" prefHeight="27.0" prefWidth="170.0" text="Delete Current Image Only" />
+      <Button fx:id="btnDeleteAll" layoutX="600.0" layoutY="544.0" mnemonicParsing="false" onAction="#clickDeleteAll" prefHeight="27.0" prefWidth="170.0" text="Delete All Copies" />
    </children>
 </Pane>
