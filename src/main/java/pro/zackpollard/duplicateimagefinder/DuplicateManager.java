@@ -213,6 +213,30 @@ public class DuplicateManager {
 
         return getCurrentDuplicate();
     }
+    
+    public LinkedList<String> deleteAll() {
+
+        LinkedList<String> duplicate = getCurrentDuplicate();
+
+        String hash = generateHash(new File(duplicate.get(0)));
+
+        for(String path : new LinkedList<>(duplicate)) {
+
+            if (deleteFile(path)) {
+
+                duplicate.remove(path);
+                if (duplicate.size() == 1) {
+
+                    hashCache.remove(hash);
+                    fileCache.remove(hash);
+                }
+            }
+        }
+        
+        getPreviousDuplicate();
+
+        return getCurrentDuplicate();
+    }
 
     private boolean deleteFile(String path) {
 
