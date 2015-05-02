@@ -134,4 +134,20 @@ public class Controller {
 
         this.clickPreviousImage(null);
     }
+    
+    public void clickDeleteAll(ActionEvent actionEvent) {
+
+        Main instance = Main.getInstance();
+        DuplicateManager duplicateManager = instance.getDuplicateManager();
+        duplicateManager.deleteAll();
+
+        currentImage = 1;
+
+        Stage primaryStage = instance.getStage();
+
+        Label lblImagePos = (Label) primaryStage.getScene().lookup("#lblDuplicatePos");
+        lblImagePos.setText("Duplicate " + (duplicateManager.getCurrentDuplicateID() + 1) + "/" + duplicateManager.getTotalDuplicates());
+
+        this.clickPreviousImage(null);
+    }
 }
