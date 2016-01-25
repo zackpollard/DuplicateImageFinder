@@ -50,10 +50,14 @@ public class DuplicateManager {
             duplicateAmounts.put(paths.size(), amount);
         }
 
+        int extraFiles = 0;
         for(Map.Entry<Integer, Integer> amounts : duplicateAmounts.entrySet()) {
 
             System.out.println("Duplicate Amount: " + amounts.getKey() + " - Occurrences: " + amounts.getValue());
+            extraFiles += ((amounts.getKey() - 1) * amounts.getValue());
         }
+
+        System.out.println("\nThere are " + extraFiles + " extra files on the system than required.");
     }
 
     private String generateHash(File file) {
