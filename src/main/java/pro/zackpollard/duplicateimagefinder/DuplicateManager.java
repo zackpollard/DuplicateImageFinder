@@ -7,7 +7,6 @@ import com.drew.metadata.exif.ExifSubIFDDirectory;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -98,17 +97,17 @@ public class DuplicateManager {
 
                 ++processedFiles;
 
-                if(processedFiles % 100 == 0) {
+                if(processedFiles % 10 == 0) {
                     //[#                    ] 1%\r
-                    System.out.print("[");
-                    int percentDone = processedFiles / totalFiles;
+                    System.out.print("\r[");
+                    double percentDone = ((double) processedFiles / (double) totalFiles) * 100;
 
                     for (int i = 0; i < 100; i += 5) {
 
                         System.out.print((i < percentDone) ? "#" : " ");
                     }
 
-                    System.out.print("] " + percentDone + "%\r");
+                    System.out.print("] " + (int) percentDone + "%");
                 }
 
                 LinkedList<String> paths = fileCache.get(hash);

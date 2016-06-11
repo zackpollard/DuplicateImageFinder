@@ -19,7 +19,7 @@ public class Utils {
                 count += getFilesCount(f);
             } else {
 
-                if(file.getName().toLowerCase().endsWith(".jpg")) {
+                if(f.getName().toLowerCase().endsWith(".jpg")) {
 
                     ++count;
                 }
