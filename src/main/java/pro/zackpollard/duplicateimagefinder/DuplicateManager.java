@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by Zack on 24/04/2015.
+ * @author Zack Pollard
  */
 public class DuplicateManager {
 
@@ -24,6 +24,8 @@ public class DuplicateManager {
     private final LinkedList<String> hashCache;
 
     private int currentDuplicate;
+    private int totalFiles;
+    private int processedFiles;
 
     public DuplicateManager(Main instance) {
 
@@ -31,6 +33,8 @@ public class DuplicateManager {
         this.instance = instance;
         this.fileCache = new HashMap<>();
         this.hashCache = new LinkedList<>();
+        this.processedFiles = 0;
+        totalFiles = Utils.getFilesCount(appLocation);
         findDuplicates(appLocation);
         currentDuplicate = 0;
 
@@ -39,11 +43,10 @@ public class DuplicateManager {
         for(LinkedList<String> paths : fileCache.values()) {
 
             Integer amount = duplicateAmounts.get(paths.size());
-            if(amount == null) {
 
+            if(amount == null) {
                 amount = 1;
             } else {
-
                 ++amount;
             }
 
@@ -67,7 +70,7 @@ public class DuplicateManager {
         try {
 
             directory = ImageMetadataReader.readMetadata(file).getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-        } catch (ImageProcessingException | IOException e) {
+        } catch (ImageProcessingException | IOException ignored) {
         }
 
         if(directory != null) {
@@ -87,11 +90,24 @@ public class DuplicateManager {
 
         File[] faFiles = root.listFiles();
 
-        for(File file: faFiles){
+        for(File file: faFiles) {
 
             if(file.getName().toLowerCase().endsWith(".jpg")) {
 
                 String hash = generateHash(file);
+
+                ++processedFiles;
+
+                //[#                    ] 1%\r
+                System.out.print("[");
+                int percentDone = processedFiles / totalFiles;
+
+                for(int i = 0; i < 100; i += 5) {
+
+                    System.out.print((i < percentDone) ? "#" : " ");
+                }
+
+                System.out.print("] " + percentDone + "%\r");
 
                 LinkedList<String> paths = fileCache.get(hash);
 
