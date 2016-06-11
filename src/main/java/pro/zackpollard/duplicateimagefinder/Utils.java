@@ -21,7 +21,7 @@ public class Utils {
 
                 if(file.getName().toLowerCase().endsWith(".jpg")) {
 
-                    count++;
+                    ++count;
                 }
             }
         }

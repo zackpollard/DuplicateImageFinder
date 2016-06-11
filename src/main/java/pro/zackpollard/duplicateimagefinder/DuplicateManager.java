@@ -98,16 +98,18 @@ public class DuplicateManager {
 
                 ++processedFiles;
 
-                //[#                    ] 1%\r
-                System.out.print("[");
-                int percentDone = processedFiles / totalFiles;
+                if(processedFiles % 100 == 0) {
+                    //[#                    ] 1%\r
+                    System.out.print("[");
+                    int percentDone = processedFiles / totalFiles;
 
-                for(int i = 0; i < 100; i += 5) {
+                    for (int i = 0; i < 100; i += 5) {
 
-                    System.out.print((i < percentDone) ? "#" : " ");
+                        System.out.print((i < percentDone) ? "#" : " ");
+                    }
+
+                    System.out.print("] " + percentDone + "%\r");
                 }
-
-                System.out.print("] " + percentDone + "%\r");
 
                 LinkedList<String> paths = fileCache.get(hash);
 
