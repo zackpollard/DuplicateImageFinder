@@ -8,8 +8,8 @@ This is a simple Java tool that I threw together in order to rid my life of dupl
 3. Run jar file and wait for window to appear with results, for a large amount of files this could take a while.   
 
 ## Source Code
-Source is stored on GitLab and mirrored to Github
-[![Repo on GitHub](https://img.shields.io/badge/repo-GitHub-3D76C2.svg)](https://github.com/zackpollard/DuplicateImageFinder)
+Source is stored on GitLab and mirrored to Github   
+[![Repo on GitHub](https://img.shields.io/badge/repo-GitHub-3D76C2.svg)](https://github.com/zackpollard/DuplicateImageFinder)   
 [![Repo on 
 GitLab](https://img.shields.io/badge/repo-GitLab-6C488A.svg)](https://git.zackpollard.pro/personal-projects/open-source/DuplicateImageFinder)
 
